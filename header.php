@@ -5,8 +5,9 @@
 <!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 <?php 
-include  "database.php"
+include  "database.php";
  ?>
+
    <!--- Basic Page Needs
    ================================================== -->
    <meta charset="utf-8">

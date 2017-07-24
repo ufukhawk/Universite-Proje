@@ -18,7 +18,7 @@
    				foreach ($sorgu as $row) {
    					?>
 							<a href="single.php" title=""><?php echo $row['baslik']  ?></a>
-												<?php 
+<?php 
 }
 }
  ?>
@@ -78,7 +78,6 @@
 }
 }
  ?>
-
 						</h2> 				 
 					
 						<div class="entry-meta">

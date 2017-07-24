@@ -1,5 +1,5 @@
  <?php 
-include  "database.php"
+include  "database.php";
  ?>
  	<?php 
    			$sorgu = $db->query("SELECT * FROM menuler",PDO::FETCH_ASSOC);
@@ -16,9 +16,11 @@ include  "database.php"
 	   	<div class="row">    		            
 
 			   	<ul id="nav" class="nav"> 
-			      <li><a  href="index.php" target="_blank"  ><?php echo $row['anasaya']  ?> </a></li>
+			      <li><a  href="index.php"  ><?php echo $row['anasaya']  ?> </a></li>
 	              <li><a href="demo.html"><?php echo $row['iletisim'] ?></a></li>	
 	              <li><a href="archives.html"><?php echo $row['hakkinda'] ?></a></li>
+
+	           
 			   	</ul> <!-- end #nav -->			   	 
 	   	</div> 
 	   </nav>

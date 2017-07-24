@@ -1,24 +1,64 @@
 <div id="sidebar" class="four columns">
-
+ <?php 
+include  "database.php";
+  if (isset($_GET['cikis']) AND $_GET['cikis'] == '1') {
+    session_unset();
+    session_destroy();
+  }
+ ?>
    			<div class="widget widget_search">
                   <h3>Search</h3> 
                   <form action="#">
+<?php 
+if (isset($_SESSION['Kullanici'])){
+   echo "<a href='index.php?cikis=1'>ÇIKIŞ</a>";
+   echo "<br>";
+   echo "Hoşgeldin : ";
+   echo "<b>".$_SESSION['Kullanici']."</b>";
 
-                     <input type="text" value="Search here..." onblur="if(this.value == '') { this.value = 'Search here...'; }" onfocus="if (this.value == 'Search here...') { this.value = ''; }" class="text-search">
-                     <input type="submit" value="" class="submit-search">
-
+}
+else
+{
+    echo "<a href='giris/girisekrani.php'>ÜYE OL</a>";
+}
+?>
                   </form>
                </div>
 
    			<div class="widget widget_categories group">
    				<h3>Categories.</h3> 
    				<ul>
-						<li><a href="#" title="">Wordpress</a> (2)</li>
-						<li><a href="#" title="">Ghost</a> (14)</li>
-						<li><a href="#" title="">Joomla</a> (5)</li>
-						<li><a href="#" title="">Drupal</a> (3)</li>
-						<li><a href="#" title="">Magento</a> (2)</li>
-						<li><a href="#" title="">Uncategorized</a> (9)</li>						
+                  <?php 
+            $sorgu = $db->query("SELECT kategory.k_adi , COUNT(*) as say
+FROM kategory INNER JOIN icerik
+ON kategory.id = icerik.k_id
+GROUP BY kategory.id
+ORDER BY say DESC" ,PDO::FETCH_ASSOC);
+             $sorgu2 = $db->query("SELECT kategory.k_adi , COUNT(*) as say
+FROM kategory INNER JOIN icerik
+ON kategory.id = icerik.k_id
+GROUP BY kategory.id
+ORDER BY say DESC" ,PDO::FETCH_ASSOC);
+              $sorgu3 = $db->query("SELECT kategory.k_adi , COUNT(*) as say
+FROM kategory INNER JOIN icerik
+ON kategory.id = icerik.k_id
+GROUP BY kategory.id
+ORDER BY say DESC" ,PDO::FETCH_ASSOC);
+
+            if($sorgu -> rowCount())
+            {
+               foreach ($sorgu as $row) {
+
+            ?>
+               <li><a href="#" title=""><?php echo $row['k_adi']?></a>(<?php echo $row['say']?>)</li>
+                   <?php if($sorgu2 -> rowCount())
+            ?>
+                   
+<?php 
+}
+}
+ ?>
+										
 					</ul>
 				</div>
 
@@ -33,13 +73,25 @@
                <h3>Post Tags.</h3>
 
                <div class="tagcloud group">
-                	<a href="#">Corporate</a>
-                  <a href="#">Onepage</a>
-                  <a href="#">Agency</a>
-                  <a href="#">Multipurpose</a>
-                  <a href="#">Blog</a>
-                  <a href="#">Landing Page</a>
-                  <a href="#">Resume</a>
+                  <?php 
+            $sorgu = $db->query("SELECT * FROM etiket",PDO::FETCH_ASSOC);
+            if($sorgu -> rowCount())
+            {
+               foreach ($sorgu as $row) {
+ ?>
+               
+             
+                  <a href="#"><?php echo $row['html']?></a>
+                  <a href="#"><?php echo $row['php']?></a>
+                  <a href="#"><?php echo $row['database']?></a>
+               
+
+<?php 
+}
+}
+ ?>
+                
+
                </div>
                   
             </div>

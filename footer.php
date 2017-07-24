@@ -38,29 +38,55 @@
          <div class="four columns">
 
             <h3>Photostream</h3>
-            
+              <?php 
+
+ ?>
+            <?php function instagram()
+            { 
+$username = 'kotlindevelopers';
+$json = file_get_contents('https://www.instagram.com/'.$username.'/media/');
+$instagram_feed_data = json_decode($json, true);
+if (isset($instagram_feed_data['items'])) {
+    return $instagram_feed_data['items'];
+        ?>
+        <?php
+    }
+}
+?>
             <ul class="photostream group">
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+            <?php foreach (instagram() as $item) {
+        $link = $item['link'];
+        $img_url = $item['images']['low_resolution']['url'];
+        $caption = isset($item['caption']) ? $item['caption']['text'] : '';
+        echo "<li><a href='$link'><img src='$img_url'></a></li>";
+        } ?>
             </ul>           
 
          </div>
 
          <div class="two columns">
+
             <h3 class="social">Navigate</h3>
 
             <ul class="navigate group">
-               <li><a href="#">Home</a></li>
-               <li><a href="#">Blog</a></li>
-               <li><a href="#">Demo</a></li>
-               <li><a href="#">Archives</a></li>
-               <li><a href="#">About</a></li>
+
+            
+
+<?php 
+            $sorgu = $db->query("SELECT * FROM menuler",PDO::FETCH_ASSOC);
+            if($sorgu -> rowCount())
+            {
+               foreach ($sorgu as $row) {
+ ?>
+               <li><a href="#"><?php echo $row['anasaya']  ?></a></li>
+               <li><a href="#"><?php echo $row['iletisim']  ?></a></li>
+               <li><a href="#"><?php echo $row['hakkinda']  ?></a></li>
+            
+<?php 
+}
+}
+ ?>
+              
             </ul>
          </div>
 
